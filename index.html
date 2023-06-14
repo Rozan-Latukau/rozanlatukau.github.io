@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <link rel="stylesheet" href="./Style/style.css">
-    <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css" />
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
     <script src="https://kit.fontawesome.com/1c50e73e27.js" crossorigin="anonymous"></script>
     <title>My Portofolio</title>
@@ -274,21 +274,32 @@
             <div class="row text-pt">
                 <h2 class="text-center fw-bold">Contact</h2>
             </div>
-            <div class="row g-3 mt-3">
-                <div class="col-md-4">
-                    <label for="validationCustom01" class="form-label">Nama Depan</label>
-                    <input type="text" class="form-control mb-3" placeholder="Nama Depan" aria-label="First name">
+            <form name="zan-contact-form">
+                <div class="alert alert-success alert-dismissible fade show d-none zl-alert" role="alert">
+                    <strong>Terimakasih</strong> Pesan Anda Sudah Masuk.
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
-                <div class="col-md">
-                    <label for="validationCustom02" class="form-label">Nama Belakang</label>
-                    <input type="text" class="form-control mb-3" placeholder="Nama Belakang" aria-label="Last name">
+                <div class="row g-3 mt-3">
+                    <div class="col-md-4">
+                        <label for="validationCustom01" class="form-label">Nama Depan</label>
+                        <input type="text" class="form-control mb-3" placeholder="Nama Depan" aria-label="First name" name="namadepan">
+                    </div>
+                    <div class="col-md">
+                        <label for="validationCustom02" class="form-label">Nama Belakang</label>
+                        <input type="text" class="form-control mb-3" placeholder="Nama Belakang" aria-label="Last name" name="namabelakang">
+                    </div>
                 </div>
-            </div>
-            <label for="exampleFormControlInput1" class="form-label">Email</label>
-            <input type="email" class="form-control mb-3" id="exampleFormControlInput1" placeholder="Email">
-            <label for="exampleFormControlTextarea1" class="form-label">Komentar</label>
-            <textarea class="form-control" id="exampleFormControlTextarea1" rows="4"></textarea>
-            <button type="submit" class="btn text-white btn-primary bk mt-4 ">Submit</button>
+                <label for="exampleFormControlInput1" class="form-label">Email</label>
+                <input type="email" class="form-control mb-3" id="exampleFormControlInput1" placeholder="Email" name="email">
+                <label for="exampleFormControlTextarea1" class="form-label">Komentar</label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="4" name="komentar"></textarea>
+                <button type="submit" class="btn text-white btn-primary bk mt-4 btn-submit ">Submit</button>
+
+                <button class="btn btn-primary mt-4 btn-loading d-none " type="button" disabled>
+                    <span class="spinner-border spinner-border-sm " role="status" aria-hidden="true"></span>
+                    Loading...
+                  </button>
+            </form>
         </div>
     </section>
     <!-- Content akhir -->
@@ -305,6 +316,40 @@
     <!-- Footer Akhir -->
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+
+    <script>
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbzg-CcWfD4MpXDpqDXmD7H9FwGWfpOw9U52JZB3aejcL523_ePBqx07UL1yrKlztUSQWw/exec'
+        const form = document.forms['zan-contact-form']
+        const btnSubmit = document.querySelector('.btn-submit');
+        const btnLoading = document.querySelector('.btn-loading');
+        const zlAlert = document.querySelector('.zl-alert');
+
+        form.addEventListener('submit', e => {
+            e.preventDefault();
+            // ketika button submit diklik
+            //tampilkan button loading dan hilangkan tombil submit
+            btnLoading.classList.toggle('d-none');
+            btnSubmit.classList.toggle('d-none');
+            fetch(scriptURL, {
+                    method: 'POST',
+                    body: new FormData(form)
+                })
+                .then(response => {
+                    //tampilkan button kirim dan hilangkan tombil loading
+                    btnLoading.classList.toggle('d-none');
+                    btnSubmit.classList.toggle('d-none');
+
+                    //tampilkan alert
+                    zlAlert.classList.toggle('d-none');
+
+                    //reset form
+                    form.reset();
+                    console.log('Success!', response);
+                })
+                .catch(error => console.error('Error!', error.message))
+        })
+    </script>
+
 </body>
 
 </html>
