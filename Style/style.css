@@ -1,0 +1,50 @@
+* {
+    text-decoration: none;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+}
+
+section {
+    padding-top: 1rem;
+}
+
+.colorx {
+    font-size: 25px;
+    font-weight: 700;
+    color: #FD0F0F;
+}
+
+.text-justify {
+    text-align: justify;
+}
+
+.text-pt {
+    padding-top: 100px;
+}
+
+.bk {
+    background-color: #0F6292;
+}
+
+.pd-t {
+    padding-top: 50px;
+}
+
+.crd {
+    color: #0F6292;
+}
+
+.profile {
+    display: flex;
+    align-items: center;
+}
+
+.footer {
+    background: linear-gradient(#0F6292, #000000);
+    padding: 5rem;
+    margin-top: 6rem;
+}
